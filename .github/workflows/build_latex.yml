@@ -9,9 +9,9 @@ on:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    env:
-      PAPER: ${{ github.event.repository.name }}
-      MAIN: ${{ github.event.pull_request.base.sha }}
+#     env:
+#       PAPER: ${{ github.event.repository.name }}
+#       MAIN: ${{ github.event.pull_request.base.sha }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
@@ -20,10 +20,12 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: |
-            ${{ env.PAPER }}.tex
-            ${{ env.PAPER }}-diff${{ env.MAIN }}.tex
-          working_directory: paper
+          root_file:
+            main.tex
+#           root_file: |
+#             ${{ env.PAPER }}.tex
+#             ${{ env.PAPER }}-diff${{ env.MAIN }}.tex
+          # working_directory: paper
           # extra_system_packages: "git patch"
           latexmk_shell_escape: true
 #           pre_compile: "latexdiff-vc --git --flatten --disable-auto-mbox -r ${{ env.MAIN }} ${{ env.PAPER }}.tex"
